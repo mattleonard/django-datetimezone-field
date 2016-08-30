@@ -103,7 +103,7 @@ class SplitDateTimeTimeZoneWidget(MultiWidget):
         super(SplitDateTimeTimeZoneWidget, self).__init__(widgets, attrs)
 
     def decompress(self, value):
-        tzinfo = timezone.get_current_timezone()
+        tzinfo = timezone('America/Los_Angeles')
         if value:
             if value.tzinfo:
                 tzinfo = value.tzinfo
@@ -137,8 +137,7 @@ class AdminSplitDateTimeTimeZone(SplitDateTimeTimeZoneWidget):
 
     def format_output(self, rendered_widgets):
 
-        return format_html('<p class="datetime">{0} {1}<br />{2} {3} {4}</p>',
-                           _('Date:'), rendered_widgets[0],
+        return format_html('<p class="datetime">{2} {3} {4}</p>',
                            _('Time:'), rendered_widgets[1],
                            rendered_widgets[2])
 

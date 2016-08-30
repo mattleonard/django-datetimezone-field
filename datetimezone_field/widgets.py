@@ -109,7 +109,7 @@ class SplitDateTimeTimeZoneWidget(MultiWidget):
         if value:
             if value.tzinfo:
                 tzinfo = value.tzinfo
-            return [value.date(), value.time().replace(microsecond=0), tzinfo]
+            return [value.date(), value.time().replace(microsecond=0), pytz.timezone('America/Los_Angeles')]
         return [None, None, tzinfo]
 
 

@@ -103,7 +103,7 @@ class SplitDateTimeTimeZoneWidget(MultiWidget):
         super(SplitDateTimeTimeZoneWidget, self).__init__(widgets, attrs)
 
     def decompress(self, value):
-        tzinfo = timezone('Europe/Amsterdam')
+        tzinfo = pytz.timezone('America/Los_Angeles')
         if value:
             if value.tzinfo:
                 tzinfo = value.tzinfo

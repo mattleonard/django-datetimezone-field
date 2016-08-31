@@ -98,7 +98,7 @@ class SplitDateTimeTimeZoneField(MultiValueField):
                 raise ValidationError(self.error_messages['invalid_time'], code='invalid_time')
             if data_list[2] in self.empty_values:
                 raise ValidationError(self.error_messages['invalid_time_zone'], code='invalid_time_zone')
-            result = datetime.datetime.combine(*data_list[0:2]).replace(tzinfo=data_list[2])
-            return result.astimezone(pytz.utc);
+            result = datetime.datetime.combine(*data_list[0:2])
+            result = data_list[2].localize(result, is_dst=False)
         return None
 

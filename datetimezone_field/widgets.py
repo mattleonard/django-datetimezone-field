@@ -37,7 +37,6 @@ class TimeZoneSelect(Select):
     """
     def __init__(self, attrs=None):
         super(TimeZoneSelect, self).__init__(attrs)
-        print timezone
         now = timezone.now()
         self.choices = [(tz, "%s (%s)" % (tz, _utcoffset(tz)))
             for tz in pytz.common_timezones]
@@ -104,17 +103,11 @@ class SplitDateTimeTimeZoneWidget(MultiWidget):
         super(SplitDateTimeTimeZoneWidget, self).__init__(widgets, attrs)
 
     def decompress(self, value):
-        tzinfo = pytz.timezone('America/Los_Angeles')
-        fmt = '%Y-%m-%d %H:%M:%S %Z%z'
-        print "decompress"
-        print value.strftime(fmt)
-        value = value.astimezone(tzinfo)
-        print value.strftime(fmt)
+        timezone = pytz.timezone('America/Los_Angeles')
         if value:
-            if value.tzinfo:
-                tzinfo = value.tzinfo
-            return [value.date(), value.time().replace(microsecond=0), pytz.timezone('America/Los_Angeles')]
-        return [None, None, tzinfo]
+            value = value.astimezone(timezone)
+            return [value.date(), value.time().replace(microsecond=0), timezone]
+        return [None, None, timezone]
 
 
 class SplitHiddenDateTimeTimeZoneWidget(SplitDateTimeTimeZoneWidget):

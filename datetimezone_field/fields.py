@@ -99,6 +99,8 @@ class SplitDateTimeTimeZoneField(MultiValueField):
             if data_list[2] in self.empty_values:
                 raise ValidationError(self.error_messages['invalid_time_zone'], code='invalid_time_zone')
             result = datetime.datetime.combine(*data_list[0:2]).replace(tzinfo=data_list[2])
+            fmt = '%Y-%m-%d %H:%M:%S %Z%z'
+            print result.strftime(fmt)
             return result
         return None
 
